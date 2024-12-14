@@ -1,3 +1,4 @@
+
 <script setup>
 import { reactive, toRaw } from 'vue'
 
@@ -12,39 +13,50 @@ const props = defineProps({
 
 // Создаем локальную копию фильтров
 const localFilters = reactive({
-  ...toRaw(props.initialFilters)
+   ...toRaw(props.initialFilters)
 })
 
 const ratingDescriptions = [
-  'Terrible (1★)',
-  'Bad (2★)',
-  'Normal (3★)',
-  'Good (4★)',
-  'Wonderful (5★)'
+   'Плохо (1★)',
+   'Не очень (2★)',
+   'Средне (3★)',
+   'Хорошо (4★)',
+   'Отлично (5★)'
 ]
 
 const genres = [
-  'Научная',
-  'Фантастика',
-  'Социальная',
-  'Для детей',
-  'Спортивный',
-  'Бизнес',
-  'Драма',
-  'Детектив',
-  'Ужасы',
-  'Историческая',
-  'Художественная литература'
+   'Программирование',
+   'Физика',
+   'Искусственный интеллект',
+   'Математика',
+   'Системы',
+   'Системное программирование',
+   'Компьютерные науки',
+   'Компьютерные сети',
+   'Автоматизация и управление',
+   'Инженерное дело',
+   'Архитектура'
 ]
-const languages = ['русский', 'английский', 'китайский', 'казахский']
-const ages = ['Для детей', 'Для подростков', 'Для взрослых', 'Для пожилых']
+
+const languages = [
+   'Русский', 
+   'Английский',  
+   'Французский', 
+   'Испанский', 
+   'Португальский'
+]
+
+const ages = [
+   '12+', 
+   '14+'
+]
 
 const toggleGenre = (genre) => {
-  if (localFilters.selectedGenres.includes(genre)) {
-    localFilters.selectedGenres = localFilters.selectedGenres.filter((g) => g !== genre)
-  } else {
-    localFilters.selectedGenres.push(genre)
-  }
+   if (localFilters.selectedGenres.includes(genre)) {
+     localFilters.selectedGenres = localFilters.selectedGenres.filter((g) => g !== genre)
+   } else {
+     localFilters.selectedGenres.push(genre)
+   }
 }
 
 const toggleLanguage = (language) => {
@@ -156,27 +168,7 @@ const applyFilters = () => {
   </div>
 </template>
 
-<style lang="scss" scoped>
-// Variables for breakpoints
-$breakpoints: (
-  '2xl': 2560px,
-  'xl': 1440px,
-  'lg': 1024px,
-  'md': 768px,
-  'sm': 425px,
-  'xs': 375px,
-  'xxs': 320px
-);
-
-// Mixin for media queries
-@mixin respond-to($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    @media screen and (max-width: map-get($breakpoints, $breakpoint)) {
-      @content;
-    }
-  }
-}
-
+<style scoped>
 .filters-overlay {
   position: fixed;
   top: 0;
@@ -199,24 +191,6 @@ $breakpoints: (
   flex-direction: column;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
   animation: slideIn 0.3s ease-out forwards;
-
-  @include respond-to('xl') {
-    width: 360px;
-  }
-
-  @include respond-to('lg') {
-    width: 320px;
-  }
-
-  @include respond-to('md') {
-    width: 100%;
-    max-width: 400px;
-  }
-
-  @include respond-to('sm') {
-    width: 100%;
-    max-width: none;
-  }
 }
 
 .filters-header {
@@ -225,45 +199,26 @@ $breakpoints: (
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
 
-  @include respond-to('sm') {
-    padding: 1rem;
-  }
+.close-button {
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  transition: background-color 0.2s;
+}
 
-  h2 {
-    @include respond-to('sm') {
-      font-size: 1.5rem;
-    }
-
-    @include respond-to('xxs') {
-      font-size: 1.25rem;
-    }
-  }
+.close-button:hover {
+  background-color: #f3f4f6;
 }
 
 .filters-content {
   flex: 1;
   overflow-y: auto;
   padding: 1.5rem;
-
-  @include respond-to('sm') {
-    padding: 1rem;
-  }
 }
 
 .filter-section {
   margin-bottom: 2rem;
-
-  @include respond-to('sm') {
-    margin-bottom: 1.5rem;
-  }
-
-  h3 {
-    @include respond-to('sm') {
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-    }
-  }
 }
 
 .filter-checkbox {
@@ -274,34 +229,17 @@ $breakpoints: (
   border-radius: 0.375rem;
   transition: background-color 0.2s;
   cursor: pointer;
+}
 
-  @include respond-to('sm') {
-    font-size: 0.875rem;
-    padding: 0.375rem;
-  }
-
-  @include respond-to('xxs') {
-    font-size: 0.813rem;
-  }
+.filter-checkbox:hover {
+  background-color: #f3f4f6;
 }
 
 .filters-footer {
   padding: 1.5rem;
   border-top: 1px solid #e5e7eb;
-
-  @include respond-to('sm') {
-    padding: 1rem;
-  }
-
-  button {
-    @include respond-to('sm') {
-      padding: 0.75rem 1rem;
-      font-size: 0.875rem;
-    }
-  }
 }
 
-// Animation keyframes
 @keyframes slideIn {
   from {
     transform: translateX(100%);
